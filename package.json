@@ -23,6 +23,7 @@
     "react-native-get-random-values": "^1.9.0",
     "react-native-web": "~0.18.11",
     "react-navigation": "^4.4.4"
+<<<<<<< HEAD
 =======
     "react-native-web": "~0.18.11",
 <<<<<<< HEAD
@@ -30,6 +31,8 @@
 >>>>>>> c7b7989 (setup email and password)
 =======
     "react-navigation": "^4.4.4"
+>>>>>>> 5941063 (build login page)
+=======
 >>>>>>> 5941063 (build login page)
   },
   "devDependencies": {

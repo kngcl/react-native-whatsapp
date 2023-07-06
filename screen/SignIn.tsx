@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   View,
   Text,
@@ -6,6 +7,9 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+=======
+import { View, Text, Image, TextInput, Button } from "react-native";
+>>>>>>> 5941063 (build login page)
 import React, { useContext, useState } from "react";
 import Context from "../context/Context";
 import { signIn, signUp } from "../config/firebase";
