@@ -46,44 +46,19 @@ function App() {
   }
 
   return (
-    <NavigationContainer>
-      {!currentUser ? (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="signIn" component={SignIn} />
-        </Stack.Navigator>
-      ) : (
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: colors.foreground,
-              shadowOpacity: 0,
-              elevation: 0,
-            },
-            headerTintColor: colors.white,
-          }}
-        >
-          {!currentUser.displayName && (
-            <Stack.Screen
-              name="profile"
-              component={Profile}
-              options={{ headerShown: false }}
-            />
-          )}
-          <Stack.Screen
-            name="home"
-            options={{ headerShown: false }}
-            component={Home}
-          />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Text>Open up App.tsx to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0e806a'
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
