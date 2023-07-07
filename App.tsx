@@ -1,12 +1,14 @@
 import { LogBox, Text } from "react-native";
 import { useAssets } from "expo-asset";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Context from "./context/Context";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SignIn from "./screen/SignIn";
 import ContextWrapper from "./context/ContextWrapper";
+import Profile from "./screen/Profile";
 
 LogBox.ignoreLogs([
   "setting a timer",
@@ -18,8 +20,11 @@ const Stack = createStackNavigator();
 function App() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [loading, setLoading] = useState<Boolean>(true);
+  const {
+    theme: { colors },
+  } = useContext(Context);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(false);
       if (user) {
@@ -27,11 +32,11 @@ function App() {
       }
     });
     return () => unsubscribe();
-  }, []); */
+  }, []);
 
-  /*   if (!loading) {
+  if (loading) {
     return <Text>Loading...</Text>;
-  } */
+  }
 
   return (
     <NavigationContainer>
@@ -40,10 +45,36 @@ function App() {
           <Stack.Screen name="signIn" component={SignIn} />
         </Stack.Navigator>
       ) : (
-        <Text>Hello</Text>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: colors.foreground,
+              shadowOpacity: 0,
+              elevation: 0,
+            },
+            headerTintColor: colors.white,
+          }}
+        >
+          {!currentUser.displayName && (
+            <Stack.Screen
+              name="profile"
+              component={Profile}
+              options={{ headerShown: false }}
+            />
+          )}
+          <Stack.Screen
+            name="home"
+            options={{ title: "whatsapp" }}
+            component={Home}
+          />
+        </Stack.Navigator>
       )}
     </NavigationContainer>
   );
+}
+
+function Home() {
+  return <Text>Hi i have a profile</Text>;
 }
 
 function Main() {
@@ -51,6 +82,7 @@ function Main() {
     require("./assets/user-icon.png"),
     require("./assets/welcome-img.png"),
   ]);
+
   if (!assets) {
     return <Text>Loading...</Text>;
   }

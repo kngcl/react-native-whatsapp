@@ -19,7 +19,7 @@ export const theme = {
         tertiary : palette.lime,
         secondary : palette.green,
         white : palette.white,
-        text : palette.white,
+        text : palette.gray,
         secondaryText : palette.lightGray,
         iconGray : palette.iconGray
     },
