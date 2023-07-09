@@ -6,7 +6,7 @@ export async function pickImage() {
 }
 
 export async function askForPermission() {
-  const { status } = await ImagePicker.requestCameraPermission();
+  const { status } = await ImagePicker.requestCameraPermissionsAsync();
   return status;
 }
 
