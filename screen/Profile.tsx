@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 778c1d2 (profile style)
 import {
   View,
   Text,
@@ -7,9 +10,12 @@ import {
   TextInput,
   Button,
 } from "react-native";
+<<<<<<< HEAD
 import React, { useContext, useEffect, useState } from "react";
 =======
 import { View, Text, TouchableOpacity, Image } from "react-native";
+=======
+>>>>>>> 778c1d2 (profile style)
 import React, { useContext, useState } from "react";
 >>>>>>> d02c32b (build profile component)
 import { StatusBar } from "expo-status-bar";
@@ -18,6 +24,7 @@ import GlobalContext from "../context/Context";
 import Context from "../context/Context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { pickImage, askForPermission, uploadImage } from "../utils";
 import { auth, db } from "../config/firebase";
 import { updateProfile } from "firebase/auth";
@@ -25,6 +32,9 @@ import { doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 =======
 >>>>>>> d02c32b (build profile component)
+=======
+import { pickImage } from "../utils";
+>>>>>>> 778c1d2 (profile style)
 
 export default function Profile() {
   const [displayName, setDisplayName] = useState<string>("");
@@ -47,6 +57,7 @@ export default function Profile() {
     theme: { colors },
   } = useContext(GlobalContext);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   async function handlePress() {
     const user = auth.currentUser;
@@ -73,10 +84,14 @@ export default function Profile() {
     ]);
         navigation.navigate("home");
   }
+=======
+  async function handlePress() {}
+>>>>>>> 778c1d2 (profile style)
 
   async function handleImagePicker() {
     const result = await pickImage();
 
+<<<<<<< HEAD
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
       console.log(result.assets[0].uri);
@@ -95,6 +110,13 @@ export default function Profile() {
 
 =======
 >>>>>>> d02c32b (build profile component)
+=======
+    if (!result.cancelled) {
+      setSelectedImage(result);
+    }
+  }
+
+>>>>>>> 778c1d2 (profile style)
   return (
     <React.Fragment>
       <StatusBar style="auto" />
@@ -115,10 +137,17 @@ export default function Profile() {
           Hi bro please enter your image and displayName
         </Text>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <TouchableOpacity
           onPress={handleImagePicker}
           style={{
             marginTop: 30,
+=======
+        <TouchableOpacity
+          onPress={handleImagePicker}
+          style={{
+            marginTop: 20,
+>>>>>>> 778c1d2 (profile style)
             borderRadius: 120,
             width: 120,
             height: 120,
@@ -139,6 +168,7 @@ export default function Profile() {
               style={{ width: "100%", borderRadius: 120 }}
             />
           )}
+<<<<<<< HEAD
         </TouchableOpacity>
         <TextInput
           placeholder="Enter your Name"
@@ -164,6 +194,28 @@ export default function Profile() {
           {!selectedImage ? <MaterialCommunityIcons /> : /*  <Image /> */ "f"}
         </TouchableOpacity>
 >>>>>>> d02c32b (build profile component)
+=======
+        </TouchableOpacity>
+        <TextInput
+          placeholder="Enter your Name"
+          value={displayName}
+          onChangeText={setDisplayName}
+          style={{
+            borderBottomColor: colors.primary,
+            marginTop: 40,
+            borderBottomWidth: 2,
+            width: "100%",
+          }}
+        />
+        <View style={{ marginTop: "auto", width: 80 }}>
+          <Button
+            title="Next"
+            color={colors.secondary}
+            onPress={handlePress}
+            disabled={!displayName}
+          />
+        </View>
+>>>>>>> 778c1d2 (profile style)
       </View>
     </React.Fragment>
   );

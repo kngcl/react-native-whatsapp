@@ -57,7 +57,7 @@ const palette = {
 };
 
 export const theme = {
-<<<<<<< HEAD
+
   colors: {
     background: palette.smokeWhite,
     foreground: palette.tealGreenDark,
@@ -70,17 +70,4 @@ export const theme = {
     iconGray: palette.iconGray,
   },
 };
-=======
-    colors:{
-        background : palette.smokeWhite,
-        foreground : palette.tealGreenDark,
-        primary : palette.tealGreen,
-        tertiary : palette.lime,
-        secondary : palette.green,
-        white : palette.white,
-        text : palette.gray,
-        secondaryText : palette.lightGray,
-        iconGray : palette.iconGray
-    },
-}
->>>>>>> d02c32b (build profile component)
+
