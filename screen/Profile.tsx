@@ -11,6 +11,7 @@ import {
   Button,
 } from "react-native";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useContext, useEffect, useState } from "react";
 =======
 import { View, Text, TouchableOpacity, Image } from "react-native";
@@ -18,6 +19,9 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 >>>>>>> 778c1d2 (profile style)
 import React, { useContext, useState } from "react";
 >>>>>>> d02c32b (build profile component)
+=======
+import React, { useContext, useEffect, useState } from "react";
+>>>>>>> 51a2417 (PROFILE screen done)
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import GlobalContext from "../context/Context";
@@ -25,21 +29,30 @@ import Context from "../context/Context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
 import { pickImage, askForPermission, uploadImage } from "../utils";
 import { auth, db } from "../config/firebase";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
+<<<<<<< HEAD
 =======
 >>>>>>> d02c32b (build profile component)
 =======
 import { pickImage } from "../utils";
 >>>>>>> 778c1d2 (profile style)
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
 
 export default function Profile() {
   const [displayName, setDisplayName] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<any>(null);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
   const [permission, setPermission] = useState<any>(null);
   const navigation = useNavigation();
 
@@ -50,8 +63,11 @@ export default function Profile() {
       permissions();
     };
   }, []);
+<<<<<<< HEAD
 =======
 >>>>>>> d02c32b (build profile component)
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
 
   const {
     theme: { colors },
@@ -59,6 +75,9 @@ export default function Profile() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
   async function handlePress() {
     const user = auth.currentUser;
     let photoURL;
@@ -84,14 +103,20 @@ export default function Profile() {
     ]);
         navigation.navigate("home");
   }
+<<<<<<< HEAD
 =======
   async function handlePress() {}
 >>>>>>> 778c1d2 (profile style)
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
 
   async function handleImagePicker() {
     const result = await pickImage();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
       console.log(result.assets[0].uri);
@@ -105,6 +130,7 @@ export default function Profile() {
 
     if (permission != "granted") {
       return <Text>You need to give access</Text>;
+<<<<<<< HEAD
     }
   }
 
@@ -113,6 +139,8 @@ export default function Profile() {
 =======
     if (!result.cancelled) {
       setSelectedImage(result);
+=======
+>>>>>>> 51a2417 (PROFILE screen done)
     }
   }
 
@@ -127,9 +155,13 @@ export default function Profile() {
           flex: 1,
           paddingTop: Constants.statusBarHeight + 20,
 <<<<<<< HEAD
+<<<<<<< HEAD
           padding: 20,
 =======
 >>>>>>> d02c32b (build profile component)
+=======
+          padding: 20,
+>>>>>>> 51a2417 (PROFILE screen done)
         }}
       >
         <Text style={{ fontSize: 22, color: colors.foreground }}>Profile</Text>
@@ -146,8 +178,12 @@ export default function Profile() {
         <TouchableOpacity
           onPress={handleImagePicker}
           style={{
+<<<<<<< HEAD
             marginTop: 20,
 >>>>>>> 778c1d2 (profile style)
+=======
+            marginTop: 30,
+>>>>>>> 51a2417 (PROFILE screen done)
             borderRadius: 120,
             width: 120,
             height: 120,
