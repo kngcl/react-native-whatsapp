@@ -25,8 +25,12 @@
     "react-navigation": "^4.4.4"
 =======
     "react-native-web": "~0.18.11",
+<<<<<<< HEAD
     "@expo/webpack-config": "^18.0.1"
 >>>>>>> c7b7989 (setup email and password)
+=======
+    "react-navigation": "^4.4.4"
+>>>>>>> 5941063 (build login page)
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
