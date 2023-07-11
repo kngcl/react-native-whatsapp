@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 import { LogBox, Text } from "react-native";
 import { useAssets } from "expo-asset";
 import React, { useContext, useEffect, useState } from "react";
@@ -9,12 +11,32 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SignIn from "./screen/SignIn";
 import ContextWrapper from "./context/ContextWrapper";
 import Profile from "./screen/Profile";
+=======
+import { StatusBar } from "expo-status-bar";
+import { LogBox, StyleSheet, Text, View } from "react-native";
+=======
+import { LogBox, Text } from "react-native";
+>>>>>>> 5941063 (build login page)
+import { useAssets } from "expo-asset";
+import React, { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./config/firebase";
+<<<<<<< HEAD
+>>>>>>> c7b7989 (setup email and password)
+=======
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import SignIn from "./screen/SignIn";
+import ContextWrapper from "./context/ContextWrapper";
+>>>>>>> 5941063 (build login page)
 
 LogBox.ignoreLogs([
   "setting a timer",
   "AsyncStorage has been extracted  from react-native core and will be removed in feature release",
 ]);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 const Stack = createStackNavigator();
 
 function App() {
@@ -23,14 +45,28 @@ function App() {
   const {
     theme: { colors },
   } = useContext(Context);
+=======
+function App() {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+>>>>>>> c7b7989 (setup email and password)
+=======
+const Stack = createStackNavigator();
 
-  useEffect(() => {
+function App() {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [loading, setLoading] = useState<Boolean>(true);
+>>>>>>> 5941063 (build login page)
+
+  /*   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(false);
       if (user) {
         setCurrentUser(user);
       }
     });
+<<<<<<< HEAD
+<<<<<<< HEAD
     return () => unsubscribe();
   }, []);
 
@@ -78,10 +114,52 @@ function Home() {
 }
 
 function Main() {
+=======
+    return unsubscribe();
+  }, []);
+=======
+    return () => unsubscribe();
+  }, []); */
+>>>>>>> 5941063 (build login page)
+
+  /*   if (!loading) {
+    return <Text>Loading...</Text>;
+  } */
+
+  return (
+    <NavigationContainer>
+      {!currentUser ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="signIn" component={SignIn} />
+        </Stack.Navigator>
+      ) : (
+        <Text>Hello</Text>
+      )}
+    </NavigationContainer>
+  );
+}
+
+<<<<<<< HEAD
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#012",
+  },
+});
+
+function main() {
+>>>>>>> c7b7989 (setup email and password)
+=======
+function Main() {
+>>>>>>> 5941063 (build login page)
   const [assets] = useAssets([
     require("./assets/user-icon.png"),
     require("./assets/welcome-img.png"),
   ]);
+<<<<<<< HEAD
 
   if (!assets) {
     return <Text>Loading...</Text>;
@@ -93,3 +171,20 @@ function Main() {
   );
 }
 export default Main;
+=======
+  if (!assets) {
+    return <Text>Loading...</Text>;
+  }
+  return (
+    <ContextWrapper>
+      <App />
+    </ContextWrapper>
+  );
+}
+<<<<<<< HEAD
+
+export default main();
+>>>>>>> c7b7989 (setup email and password)
+=======
+export default Main;
+>>>>>>> 5941063 (build login page)

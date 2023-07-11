@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   View,
   Text,
@@ -6,6 +7,9 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+=======
+import { View, Text, Image, TextInput, Button } from "react-native";
+>>>>>>> 5941063 (build login page)
 import React, { useContext, useState } from "react";
 import Context from "../context/Context";
 import { signIn, signUp } from "../config/firebase";
@@ -13,11 +17,19 @@ import { signIn, signUp } from "../config/firebase";
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+<<<<<<< HEAD
   let [mode, setMode] = useState<string>("signUp");
   const {
     theme: { colors },
   } = useContext(Context);
 
+=======
+  const [mode, setMode] = useState<any>("signUp");
+  const {
+    theme: { colors },
+  } = useContext(Context);
+/* 
+>>>>>>> 5941063 (build login page)
   async function handlePress() {
     if (mode === "signUp") {
       await signUp(email, password);
@@ -25,7 +37,11 @@ export default function SignIn() {
     if (mode === "signIn") {
       await signIn(email, password);
     }
+<<<<<<< HEAD
   }
+=======
+  } */
+>>>>>>> 5941063 (build login page)
 
   return (
     <View
@@ -35,7 +51,11 @@ export default function SignIn() {
         flex: 1,
         backgroundColor: colors.white,
       }}
+<<<<<<< HEAD
     >   
+=======
+    >
+>>>>>>> 5941063 (build login page)
       <Text
         style={{ color: colors.foreground, fontSize: 24, marginBottom: 20 }}
       >
@@ -71,6 +91,7 @@ export default function SignIn() {
         />
         <View style={{ marginTop: 20 }}>
           <Button
+<<<<<<< HEAD
             title={mode === "SignUp" ? "Sign Up" : "Sign In"}
             color={colors.secondary}
             disabled={!password || !email}
@@ -91,6 +112,14 @@ export default function SignIn() {
           </Text>
         </TouchableOpacity>
         {mode === "signUp"}
+=======
+            title= "si"/* {mode === "SignUp" ? "sign Up" : "Login in"} */
+            color={colors.secondary}
+            disabled={!password || !email}
+/*             onPress={handlePress} */
+          />
+        </View>
+>>>>>>> 5941063 (build login page)
       </View>
     </View>
   );
