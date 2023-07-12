@@ -9,10 +9,10 @@ import { auth } from "./config/firebase";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import SignIn from "./scr/screen/SignIn";
+import SignIn from "./src/screens/SignIn";
 
 import ContextWrapper from "./context/ContextWrapper";
-import Profile from "./scr/screen/Profile";
+import Profile from "./src/screens/Profile";
 
 LogBox.ignoreLogs([
   "setting a timer",
