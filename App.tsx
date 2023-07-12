@@ -71,7 +71,7 @@ function App() {
           )}
           <Stack.Screen
             name="home"
-            options={{ title: "whatsapp" }}
+            options={{ headerShown: false }}
             component={Home}
           />
         </Stack.Navigator>
