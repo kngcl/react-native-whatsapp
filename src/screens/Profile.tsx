@@ -37,7 +37,8 @@ export default function Profile() {
   } = useContext(GlobalContext);
 
   async function handlePress() {
-    const user = auth.currentUser;
+    console.log(displayName)
+    const user = auth.currentUser! ;
     let photoURL;
     console.log(user);
     if (selectedImage) {
@@ -52,14 +53,16 @@ export default function Profile() {
       displayName,
       email: user?.email,
     };
+    console.log(userData)
     if (photoURL) {
       userData.photoURL = photoURL;
     }
+    console.log({ ...userData, uid: user?.uid })
     await Promise.all([
       updateProfile(user, userData),
       setDoc(doc(db, "users", user.uid), { ...userData, uid: user?.uid }),
     ]);
-        /* navigation.navigate("home"); */
+        navigation.navigate("home");
   }
 
   async function handleImagePicker() {
