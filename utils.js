@@ -36,7 +36,7 @@ export async function uploadImage(uri, path, fname) {
     contentType: "image/jpeg",
   });
 
-  blob.close();
+
 
   const url = await getDownloadURL(snapshot.ref);
 

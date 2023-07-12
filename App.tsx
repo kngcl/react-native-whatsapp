@@ -29,18 +29,6 @@ function App() {
     theme: { colors },
   } = useContext(Context);
 
-function App() {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-
-const Stack = createStackNavigator();
-
-function App() {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  const [loading, setLoading] = useState<Boolean>(true);
-
-
    useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(false);
@@ -90,31 +78,10 @@ function App() {
     </NavigationContainer>
   );
 }
-}
+
 function Home() {
   return <Text>Hi i have a profile</Text>;
 }
-
-
-
-  /*   if (!loading) {
-    return <Text>Loading...</Text>;
-  } */
-
-  return (
-    <NavigationContainer>
-      {!currentUser ? (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="signIn" component={SignIn} />
-        </Stack.Navigator>
-      ) : (
-        <Text>Hello</Text>
-      )}
-    </NavigationContainer>
-  );
-}
-
-
 
 
 
