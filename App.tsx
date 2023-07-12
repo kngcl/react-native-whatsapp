@@ -14,12 +14,10 @@ import SignIn from "./scr/screen/SignIn";
 import ContextWrapper from "./context/ContextWrapper";
 import Profile from "./scr/screen/Profile";
 
-
 LogBox.ignoreLogs([
   "setting a timer",
   "AsyncStorage has been extracted  from react-native core and will be removed in feature release",
 ]);
-
 
 const Stack = createStackNavigator();
 
@@ -30,7 +28,7 @@ function App() {
     theme: { colors },
   } = useContext(Context);
 
-   useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setLoading(false);
       if (user) {
@@ -84,16 +82,11 @@ function Home() {
   return <Text>Hi i have a profile</Text>;
 }
 
-
-
-
 function Main() {
-
   const [assets] = useAssets([
     require("./assets/user-icon.png"),
     require("./assets/welcome-img.png"),
   ]);
-
 
   if (!assets) {
     return <Text>Loading...</Text>;
