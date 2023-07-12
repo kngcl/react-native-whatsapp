@@ -9,9 +9,10 @@ import { auth } from "./config/firebase";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import SignIn from "./screen/SignIn";
-import Profile from "./screen/Profile";
+import SignIn from "./scr/screen/SignIn";
+
 import ContextWrapper from "./context/ContextWrapper";
+import Profile from "./scr/screen/Profile";
 
 
 LogBox.ignoreLogs([

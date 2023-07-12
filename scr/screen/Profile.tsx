@@ -9,11 +9,11 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
-import GlobalContext from "../context/Context";
-import Context from "../context/Context";
+import GlobalContext from "../../context/Context";
+import Context from "../../context/Context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { pickImage, askForPermission, uploadImage } from "../utils";
-import { auth, db } from "../config/firebase";
+import { pickImage, askForPermission, uploadImage } from "../../utils";
+import { auth, db } from "../../config/firebase";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";

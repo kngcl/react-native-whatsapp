@@ -9,8 +9,8 @@ import {
 } from "react-native";
 
 import React, { useContext, useState } from "react";
-import Context from "../context/Context";
-import { signIn, signUp } from "../config/firebase";
+import Context from "../../context/Context";
+import { signIn, signUp } from "../../config/firebase";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
