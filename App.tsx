@@ -13,6 +13,8 @@ import SignIn from "./src/screens/SignIn";
 
 import ContextWrapper from "./context/ContextWrapper";
 import Profile from "./src/screens/Profile";
+import Header from './src/Header';
+import Navigation from './src/Navigation';
 
 LogBox.ignoreLogs([
   "setting a timer",
@@ -78,8 +80,24 @@ function App() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0e806a'
+  },
+});
+
 function Home() {
-  return <Text>Hi i have a profile</Text>;
+  return (
+    <View style={styles.container}>
+      <StatusBar />
+      <Header />
+
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <Navigation />
+      </View>
+    </View>
+  );
 }
 
 function Main() {
