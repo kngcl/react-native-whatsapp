@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import { Feather, Fontisto, MaterialCommunityIcons } from "react-native-vector-icons";
+import { Feather, Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const Header = () => {
   return (
@@ -21,9 +22,8 @@ export default Header
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
       backgroundColor: '0e806a',
-      paddingTop: 80,
+      paddingTop: 45,
       paddingBottom: 8,
     },
     headerContainer: {
