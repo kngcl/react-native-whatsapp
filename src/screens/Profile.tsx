@@ -19,17 +19,16 @@ import { doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Profile() {
-  const [displayName, setDisplayName] = useState<string>("");
+  const [displayName, setDisplayName] = useState<any>("");
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [permission, setPermission] = useState<any>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
-    async () => {
+    (async () => {
       const status = await askForPermission();
       setPermission(status);
-      permissions();
-    };
+    })();
   }, []);
 
   const {
@@ -37,10 +36,12 @@ export default function Profile() {
   } = useContext(GlobalContext);
 
   async function handlePress() {
-    console.log(displayName)
-    const user = auth.currentUser! ;
+    console.log(displayName);
+    const user = auth.currentUser!;
     let photoURL;
+
     console.log(user);
+
     if (selectedImage) {
       const { url } = await uploadImage(
         selectedImage,
@@ -52,37 +53,41 @@ export default function Profile() {
     const userData = {
       displayName,
       email: user?.email,
+      photoURL
     };
-    console.log(userData)
+
+    console.log(userData);
+
     if (photoURL) {
       userData.photoURL = photoURL;
     }
-    console.log({ ...userData, uid: user?.uid })
+
+    console.log( { ...userData, uid: user?.uid });
+
     await Promise.all([
       updateProfile(user, userData),
-      setDoc(doc(db, "users", user.uid), { ...userData, uid: user?.uid }),
+      setDoc(doc(db, "users", user.uid), { ...userData, uid: user?.uid })
     ]);
-        navigation.navigate("home");
+
+    navigation.navigate('home');
   }
 
   async function handleImagePicker() {
     const result = await pickImage();
 
     if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
+      setSelectedImage(result.assets[0]?.uri);
       console.log(result.assets[0].uri);
     }
   }
 
-  function permissions() {
     if (!permission) {
       return <Text>Loading...</Text>;
     }
 
-    if (permission != "granted") {
+    if (permission !== "granted") {
       return <Text>You need to give access</Text>;
     }
-  }
 
   return (
     <React.Fragment>
@@ -121,7 +126,7 @@ export default function Profile() {
           ) : (
             <Image
               source={{ uri: selectedImage }}
-              style={{ width: "100%", borderRadius: 120 }}
+              style={{ width: "100%", height:"100%", borderRadius: 120 }}
             />
           )}
         </TouchableOpacity>
