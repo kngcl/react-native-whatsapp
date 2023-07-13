@@ -47,14 +47,35 @@ function App() {
 
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <StatusBar backgroundColor='#0e806a' style='light'/>
-        <Header/>
-        
-        <View style={{ flex:1, backgroundColor:'white'}}>
-          <Navigation/>
-        </View>
-      </View>
+      {!currentUser ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="signIn" component={SignIn} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: colors.foreground,
+              shadowOpacity: 0,
+              elevation: 0,
+            },
+            headerTintColor: colors.white,
+          }}
+        >
+          {!currentUser.displayName && (
+            <Stack.Screen
+              name="profile"
+              component={Profile}
+              options={{ headerShown: false }}
+            />
+          )}
+          <Stack.Screen
+            name="home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
@@ -62,6 +83,7 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0e806a'
   },
 });
 
