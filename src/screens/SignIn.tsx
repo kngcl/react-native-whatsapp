@@ -89,11 +89,10 @@ export default function SignIn() {
         >
           <Text style={{ color: colors.secondaryText }}>
             {mode === "SignUp"
-              ? "Already have an account"
+              ? "Already have an account? SignIn"
               : "Don't have an account ? SignUp"}
           </Text>
         </TouchableOpacity>
-        {mode === "signUp"}
       </View>
     </View>
   );

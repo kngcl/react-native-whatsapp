@@ -14,7 +14,7 @@ export async function askForPermission() {
   return status;
 }
 
-export async function uploadImage(uri, path, fname) {
+export async function uploadImage(uri, path, fName) {
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -29,19 +29,20 @@ export async function uploadImage(uri, path, fname) {
     xhr.send(null);
   });
 
-  const fileName = fname || nanoid();
+  const fileName = fName || nanoid();
   const imageRef = ref(storage, `${path}/${fileName}.jpeg`);
 
   const snapshot = await uploadBytes(imageRef, blob, {
     contentType: "image/jpeg",
   });
 
-
+  blob.close();
 
   const url = await getDownloadURL(snapshot.ref);
 
   return { url, fileName };
 }
+
 
 const palette = {
   tealGreen: "#128c7e",
@@ -69,4 +70,3 @@ export const theme = {
     iconGray: palette.iconGray,
   },
 };
-
