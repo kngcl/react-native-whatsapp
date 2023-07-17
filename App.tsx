@@ -21,7 +21,7 @@ import Chat from "./src/screens/Chat";
 
 LogBox.ignoreLogs([
   "setting a timer",
-  "AsyncStorage has been extracted  from react-native core and will be removed in feature release",
+  "AsyncStorage has been extracted  from react-native core and will be removed in feature release"
 ]);
 
 const Stack = createStackNavigator();
