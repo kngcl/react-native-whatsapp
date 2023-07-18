@@ -15,13 +15,13 @@ export default function Contacts() {
     <FlatList
       style={{ flex: 1, padding: 10 }}
       data={contacts}
-      keyExtractor={(_, i) => i}
+      keyExtractor={(_:any, i:number) => i}
       renderItem={({ item }) => <ContactPreview contact={item} image={image} />}
     />
   );
 }
 
-function ContactPreview({ contact, image }:any) {
+function ContactPreview({ contact, image }: any) {
   const { unfilteredRooms, rooms } = useContext<any>(GlobalContext);
   const [user, setUser] = useState<any>(contact);
 
