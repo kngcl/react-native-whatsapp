@@ -15,6 +15,7 @@ import ContextWrapper from "./context/ContextWrapper";
 import Profile from "./src/screens/Profile";
 import Header from './src/Header';
 import Navigation from './src/Navigation';
+import Contacts from "./src/screens/Contacts";
 
 LogBox.ignoreLogs([
   "setting a timer",
@@ -73,6 +74,11 @@ function App() {
             name="home"
             options={{ headerShown: false }}
             component={Home}
+          />
+          <Stack.Screen
+            name="contacts"
+            options={{ title: "Select Contacts" }}
+            component={Contacts}
           />
         </Stack.Navigator>
       )}

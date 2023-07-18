@@ -2,9 +2,11 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react
 import React, {useState, useEffect} from 'react'
 import DATA from '../data/chartdata'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const Chat = () => {
   const [chatData, setChatData] = useState(DATA)
+  const navigation = useNavigation<any>()
 
   useEffect(() => {
       setChatData(DATA)
@@ -41,7 +43,7 @@ const Chat = () => {
       />
       <TouchableOpacity
         style={styles.chatButton}
-        onPress={() => ('#')}
+        onPress={() => navigation.navigate('contacts')}
       >
         <MaterialCommunityIcons
           name='android-messages'
