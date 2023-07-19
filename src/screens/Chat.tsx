@@ -154,7 +154,7 @@ export default function Chat() {
   return (
     <ImageBackground
       resizeMode="cover"
-      source={require("../assets/chatbg.png")}
+      source={require("../../assets/welcome-img.png")}
       style={{ flex: 1 }}
     >
       <GiftedChat
