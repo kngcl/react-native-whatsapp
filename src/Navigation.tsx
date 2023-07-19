@@ -3,7 +3,7 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Chat from './screens/Chat';
+import Chats from './screens/Chats';
 import Calls from './screens/Calls';
 import Status from './screens/Status';
 import Community from './screens/Community';
@@ -37,8 +37,8 @@ const Navigation = () => {
           }}
       />
       <Tab.Screen
-          name='Chat'
-          component={Chat}
+          name='Chats'
+          component={Chats}
       />
       <Tab.Screen
           name='Status'

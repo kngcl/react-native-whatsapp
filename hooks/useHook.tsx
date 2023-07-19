@@ -25,7 +25,7 @@ export default function useContacts() {
 
 function mapContactToUser (contact:any) {
     return {
-        contactName: contact.firtName && contact.lastName ? 
+        contactName: contact.firstName && contact.lastName ? 
         `${contact.firstName} ${contact.lastName}`
         : contact.firstName, 
         email: contact.eamils[0].email
