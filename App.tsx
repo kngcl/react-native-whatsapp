@@ -13,9 +13,11 @@ import SignIn from "./src/screens/SignIn";
 
 import ContextWrapper from "./context/ContextWrapper";
 import Profile from "./src/screens/Profile";
-import Header from './src/Header';
-import Navigation from './src/Navigation';
+import Header from "./src/Header";
+import Navigation from "./src/Navigation";
 import Contacts from "./src/screens/Contacts";
+import ChatHeader from "./components/ChatHeader";
+import Chat from "./src/screens/Chat";
 
 LogBox.ignoreLogs([
   "setting a timer",
@@ -80,6 +82,11 @@ function App() {
             options={{ title: "Select Contacts" }}
             component={Contacts}
           />
+          <Stack.Screen
+            name="chat"
+            component={Chat}
+            options={{ headerTitle: (props:any) => <ChatHeader {...props} /> }}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>
@@ -89,7 +96,7 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0e806a'
+    backgroundColor: "#0e806a",
   },
 });
 
