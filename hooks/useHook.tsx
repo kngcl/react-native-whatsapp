@@ -28,6 +28,6 @@ function mapContactToUser (contact:any) {
         contactName: contact.firstName && contact.lastName ? 
         `${contact.firstName} ${contact.lastName}`
         : contact.firstName, 
-        email: contact.eamils[0].email
+        email: contact.emails[0].email
     }
 }
