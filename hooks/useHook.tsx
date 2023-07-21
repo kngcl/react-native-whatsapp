@@ -41,5 +41,5 @@ function mapContactToUser(contact: any) {
         `${contact.firstName} ${contact.lastName}`
         : contact.firstName, 
         email: contact.emails[0].email
-    }
+     }
 } */
