@@ -46,12 +46,11 @@ export default function Chat() {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  const senderUser:any = currentUser.photoURL
+  const senderUser:any = currentUser.photoURL!
     ? {
-        name: currentUser.displayName,
+        name: currentUser?.displayName,
         _id: currentUser.uid,
-        avatar: currentUser.photoURL,
-      }
+        avatar: currentUser.photoURL,      }
     : { name: currentUser.displayName, _id: currentUser.uid };
 
   const roomId = room ? room.id : randomId;

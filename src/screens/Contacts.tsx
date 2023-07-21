@@ -44,7 +44,7 @@ function ContactPreview({ contact, image }: any) {
       type="contacts"
       user={user}
       image={image}
-      rooms={unfilteredRooms.find((room: any) =>
+      room={unfilteredRooms.find((room: any) =>
         room.participantsArray.includes(contact.email)
       )}
     />
