@@ -1,7 +1,7 @@
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import { useRoute } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { FlatList } from "react-native";
 import ListItem from "../../components/ListItem";
 import GlobalContext from "../../context/Context";
 import { db } from "../../config/firebase";
@@ -15,7 +15,7 @@ export default function Contacts() {
     <FlatList
       style={{ flex: 1, padding: 10 }}
       data={contacts}
-      keyExtractor={(_:any, i:number) => i}
+      keyExtractor={(_:any, i:any) => i}
       renderItem={({ item }) => <ContactPreview contact={item} image={image} />}
     />
   );
