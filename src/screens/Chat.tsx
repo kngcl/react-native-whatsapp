@@ -46,12 +46,12 @@ export default function Chat() {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  const senderUser:any = currentUser.photoURL!
+  const senderUser:any = currentUser?.photoURL!
     ? {
         name: currentUser?.displayName,
-        _id: currentUser.uid,
-        avatar: currentUser.photoURL,      }
-    : { name: currentUser.displayName, _id: currentUser.uid };
+        _id: currentUser?.uid,
+        avatar: currentUser?.photoURL,      }
+    : { name: currentUser?.displayName, _id: currentUser?.uid };
 
   const roomId = room ? room.id : randomId;
 
@@ -62,11 +62,11 @@ export default function Chat() {
     (async () => {
       if (!room) {
         const currUserData:any = {
-          displayName: currentUser.displayName,
-          email: currentUser.email,
+          displayName: currentUser?.displayName,
+          email: currentUser?.email,
         };
-        if (currentUser.photoURL) {
-          currUserData.photoURL = currentUser.photoURL;
+        if (currentUser?.photoURL) {
+          currUserData.photoURL = currentUser?.photoURL;
         }
         const userBData:any = {
           displayName: userB.contactName || userB.displayName || "",
@@ -77,7 +77,7 @@ export default function Chat() {
         }
         const roomData = {
           participants: [currUserData, userBData],
-          participantsArray: [currentUser.email, userB.email],
+          participantsArray: [currentUser?.email, userB.email],
         };
         try {
           await setDoc(roomRef, roomData);
@@ -85,7 +85,7 @@ export default function Chat() {
           console.log(error);
         }
       }
-      const emailHash = `${currentUser.email}:${userB.email}`;
+      const emailHash = `${currentUser?.email}:${userB.email}`;
       setRoomHash(emailHash);
       if (selectedImage && selectedImage.uri) {
         await sendImage(selectedImage.uri, emailHash);
