@@ -12,7 +12,7 @@ export default function Chats() {
   const contacts = useContacts();
   const chatsQuery = query(
     collection(db, "rooms"),
-    where("participantsArray", "array-contains", currentUser.email)
+    where("participantsArray", "array-contains", currentUser?.email)
   );
   useEffect(() => {
     const unsubscribe = onSnapshot(chatsQuery, (querySnapshot) => {
@@ -21,7 +21,7 @@ export default function Chats() {
         id: doc.id,
         userB: doc
           .data()
-          .participants.find((p:any) => p.email !== currentUser.email),
+          .participants.find((p:any) => p.email !== currentUser?.email),
       }));
       setUnfilteredRooms(parsedChats);
       setRooms(parsedChats.filter((doc:any) => doc.lastMessage));
