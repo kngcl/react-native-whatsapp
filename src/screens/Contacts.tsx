@@ -10,7 +10,8 @@ import useContacts from "../../hooks/useHook";
 export default function Contacts() {
   const contacts = useContacts();
   const route = useRoute<any>();
-  const image = route.params && route.params.image;
+  const image = route.params && route.params.image || "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg";
+
   return (
     <FlatList
       style={{ flex: 1, padding: 10 }}
@@ -28,7 +29,7 @@ function ContactPreview({ contact, image }: any) {
   useEffect(() => {
     const q = query(
       collection(db, "users"),
-      where("email", "==", contact.email)
+      where("contactName", "==", contact.contactName)
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       if (snapshot.docs.length) {
@@ -45,7 +46,7 @@ function ContactPreview({ contact, image }: any) {
       user={user}
       image={image}
       room={unfilteredRooms.find((room: any) =>
-        room.participantsArray.includes(contact.email)
+        room.participantsArray.includes(contact.contactName)
       )}
     />
   );

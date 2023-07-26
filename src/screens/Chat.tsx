@@ -46,11 +46,13 @@ export default function Chat() {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  const senderUser:any = currentUser?.photoURL!
+
+  const senderUser:any = currentUser?.photoURL 
     ? {
-        name: currentUser?.displayName,
-        _id: currentUser?.uid,
-        avatar: currentUser?.photoURL,      }
+        name: currentUser.displayName,
+        _id: currentUser.uid,
+        avatar: currentUser.photoURL,
+      }
     : { name: currentUser?.displayName, _id: currentUser?.uid };
 
   const roomId = room ? room.id : randomId;
@@ -61,23 +63,27 @@ export default function Chat() {
   useEffect(() => {
     (async () => {
       if (!room) {
-        const currUserData:any = {
+
+        const currUserData: any = {
           displayName: currentUser?.displayName,
-          email: currentUser?.email,
+          email: currentUser?.displayName,
+
         };
         if (currentUser?.photoURL) {
           currUserData.photoURL = currentUser?.photoURL;
         }
-        const userBData:any = {
+        const userBData: any = {
           displayName: userB.contactName || userB.displayName || "",
-          email: userB.email,
+          email: userB.displayName,
         };
         if (userB.photoURL) {
           userBData.photoURL = userB.photoURL;
         }
         const roomData = {
           participants: [currUserData, userBData],
-          participantsArray: [currentUser?.email, userB.email],
+
+          participantsArray: [currentUser?.displayName, userB.displayName],
+
         };
         try {
           await setDoc(roomRef, roomData);
@@ -85,7 +91,9 @@ export default function Chat() {
           console.log(error);
         }
       }
-      const emailHash = `${currentUser?.email}:${userB.email}`;
+
+      const emailHash = `${currentUser?.displayName}:${userB.displayName}`;
+
       setRoomHash(emailHash);
       if (selectedImage && selectedImage.uri) {
         await sendImage(selectedImage.uri, emailHash);
@@ -109,7 +117,7 @@ export default function Chat() {
   }, []);
 
   const appendMessages = useCallback(
-    (messages:any) => {
+    (messages: any) => {
       setMessages((previousMessages) =>
         GiftedChat.append(previousMessages, messages)
       );
@@ -117,14 +125,14 @@ export default function Chat() {
     [messages]
   );
 
-  async function onSend(messages:any = []) {
-    const writes = messages.map((m:any) => addDoc(roomMessagesRef, m));
+  async function onSend(messages: any = []) {
+    const writes = messages.map((m: any) => addDoc(roomMessagesRef, m));
     const lastMessage = messages[messages.length - 1];
     writes.push(updateDoc(roomRef, { lastMessage }));
     await Promise.all(writes);
   }
 
-  async function sendImage(uri:any, roomPath:any) {
+  async function sendImage(uri: any, roomPath: any) {
     const { url, fileName } = await uploadImage(
       uri,
       `images/rooms/${roomPath || roomHash}`
@@ -144,7 +152,7 @@ export default function Chat() {
   }
 
   async function handlePhotoPicker() {
-    const result:any = await pickImage();
+    const result: any = await pickImage();
     if (!result.canceled) {
       await sendImage(result.uri, result.roomPath);
     }
@@ -178,7 +186,7 @@ export default function Chat() {
         )}
         timeTextStyle={{ right: { color: colors.iconGray } }}
         renderSend={(props) => {
-          const { text, messageIdGenerator, user, onSend }:any = props;
+          const { text, messageIdGenerator, user, onSend }: any = props;
           return (
             <TouchableOpacity
               style={{
@@ -239,7 +247,7 @@ export default function Chat() {
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(true);
-                  setSeletedImageView(props.currentMessage.image);
+                  setSeletedImageView(props.currentMessage?.image);
                 }}
               >
                 <Image
@@ -251,7 +259,7 @@ export default function Chat() {
                     borderRadius: 15,
                     resizeMode: "cover",
                   }}
-                  source={{ uri: props.currentMessage.image }}
+                  source={{ uri: props.currentMessage?.image }}
                 />
                 {selectedImageView ? (
                   <ImageView
