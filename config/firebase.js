@@ -31,9 +31,7 @@ export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 });
 
-export function signIn1() {
-  return signInWithPhoneNumber(auth, email, password);
-}
+
 
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
