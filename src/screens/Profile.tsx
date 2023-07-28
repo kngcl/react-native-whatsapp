@@ -13,10 +13,11 @@ import GlobalContext from "../../context/Context";
 import Context from "../../context/Context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { pickImage, askForPermission, uploadImage } from "../../utils";
-import { auth, db } from "../../config/firebase";
+/* import { auth, db } from "../../config/firebase"; */
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
+import { auth, db } from "../../config/confi";
 
 export default function Profile() {
   const [displayName, setDisplayName] = useState<any>("");

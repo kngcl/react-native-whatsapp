@@ -1,4 +1,3 @@
-
 import {
   View,
   Text,
@@ -10,24 +9,25 @@ import {
 } from "react-native";
 import React, { useContext, useRef, useState } from "react";
 import Context from "../../context/Context";
-import { auth, signIn, signUp } from "../../config/firebase";
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+/* import { auth, signIn, signUp } from "../../config/firebase"; */
+import { PhoneAuthProvider, RecaptchaVerifier, signInWithCredential, signInWithPhoneNumber } from "firebase/auth";
 import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
-import {firebaseConfig} from '../../config/confi'
-import firebase from 'firebase/compat/app'
+import { auth, firebaseConfig } from "../../config/confi";
+import firebase from "firebase/compat/app";
 
-    declare global {
-  interface Window { // ⚠️ notice that "Window" is capitalized here
-    recaptchaVerifier: any,
-    confirmationResult :any;
+declare global {
+  interface Window {
+    // ⚠️ notice that "Window" is capitalized here
+    recaptchaVerifier: any;
+    confirmationResult: any;
   }
 }
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<any>('');
-  const [code, setCode] = useState<any>('');
+  const [phoneNumber, setPhoneNumber] = useState<any>("");
+  const [code, setCode] = useState<any>("");
   const [verificationId, setVerificationId] = useState<any>(null);
   const recaptchaVerifier = useRef<any>(null);
 
@@ -36,39 +36,37 @@ export default function SignIn() {
     theme: { colors },
   } = useContext(Context);
 
-
-
   const handlePress = () => {
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const phoneProvider = new PhoneAuthProvider(auth);
     phoneProvider
       .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
       .then(setVerificationId);
-      setPhoneNumber('');
-};
+    setPhoneNumber("");
 
-const confirmCode = () => {
-  const credential = firebase.auth.PhoneAuthProvider.credential(
-    verificationId,
-    code
-  );
-  firebase
-    .auth()
-    .signInWithCredential(credential)
-    .then(() => {
-      setCode('');
-  })
-  .catch((error) => {
-    // show an alert in case of error
-    alert(error);
-  })
-  Alert.alert(
-    'Login Successful. Welcome to Dashboard.',
-  );
-  
-};
+  /*   signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier.current); */
+  };
 
+  const confirmCode = async () => {
+    try{
+      const credential = PhoneAuthProvider.credential(
+        verificationId,
+        code
+      );
+      alert(verificationId)
+     
+     await signInWithCredential(auth,credential)
+        .then(() => {
+          setCode("");
+        })
+    } catch(error:any) {
+        // show an alert in case of error
+        alert(error);
+        console.log(error);
+      };
+    Alert.alert("Login Successful. Welcome to Dashboard.");
+  };
 
- /*  async function handlePress() {
+  /*  async function handlePress() {
     if (mode === "signUp") {
       await signUp(email, password);
     }
@@ -76,8 +74,6 @@ const confirmCode = () => {
       await signIn(email, password);
     }
   } */
-
-
 
   return (
     <View
@@ -87,11 +83,11 @@ const confirmCode = () => {
         flex: 1,
         backgroundColor: colors.white,
       }}
-    >   
-    <FirebaseRecaptchaVerifierModal
-    ref={recaptchaVerifier}
-    firebaseConfig={firebaseConfig} 
-/>
+    >
+      <FirebaseRecaptchaVerifierModal
+        ref={recaptchaVerifier}
+        firebaseConfig={firebaseConfig}
+      />
       <Text
         style={{ color: colors.foreground, fontSize: 24, marginBottom: 20 }}
       >
@@ -105,9 +101,9 @@ const confirmCode = () => {
       <View style={{ marginTop: 20 }}>
         <TextInput
           placeholder="phone Number with country code"
-          keyboardType={'phone-pad'}
+          keyboardType={"phone-pad"}
           value={phoneNumber}
-          autoComplete ='tel' 
+          autoComplete="tel"
           onChangeText={setPhoneNumber}
           style={{
             borderBottomColor: colors.primary,
@@ -115,27 +111,36 @@ const confirmCode = () => {
             width: 200,
           }}
         />
-{/*         <TextInput
+
+        <View style={{ marginTop: 20 }}>
+          <Button
+            /* title={mode === "SignUp" ? "Sign Up" : "Sign In"} */
+            title="Send Code"
+            color={colors.secondary}
+            disabled={!phoneNumber}
+            onPress={handlePress}
+          />
+        </View>
+        <TextInput
           placeholder="Password"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={setPassword}
+          keyboardType="number-pad"
+          onChangeText={setCode}
           style={{
             borderBottomColor: colors.primary,
             borderBottomWidth: 2,
             width: 200,
             marginTop: 20,
           }}
-        /> */}
+        />
         <View style={{ marginTop: 20 }}>
           <Button
-            title={mode === "SignUp" ? "Sign Up" : "Sign In"}
+            /* title={mode === "SignUp" ? "Sign Up" : "Sign In"} */
+            title="confirm code"
             color={colors.secondary}
-            disabled={!phoneNumber}
-            onPress={handlePress}
+            /*         disabled={!phoneNumber} */
+            onPress={confirmCode}
           />
         </View>
-
         <TouchableOpacity
           style={{ marginTop: 15 }}
           onPress={() =>

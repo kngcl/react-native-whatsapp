@@ -5,9 +5,9 @@ import Context from "./context/Context";
 import { useAssets } from "expo-asset";
 import React, { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./config/firebase";
+/* import { auth } from "./config/firebase";
 
-import { NavigationContainer } from "@react-navigation/native";
+ */import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SignIn from "./src/screens/SignIn";
 
@@ -18,6 +18,7 @@ import Navigation from "./src/Navigation";
 import Contacts from "./src/screens/Contacts";
 import ChatHeader from "./components/ChatHeader";
 import Chat from "./src/screens/Chat";
+import { auth } from "./config/confi";
 
 LogBox.ignoreLogs([
   "setting a timer",
