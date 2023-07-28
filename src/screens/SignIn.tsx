@@ -5,80 +5,68 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Alert,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Context from "../../context/Context";
-import { auth, signIn, signUp } from "../../config/firebase";
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+/* import { auth, signIn, signUp } from "../../config/firebase"; */
+import { PhoneAuthProvider, RecaptchaVerifier, signInWithCredential, signInWithPhoneNumber } from "firebase/auth";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import { auth, firebaseConfig } from "../../config/confi";
+import firebase from "firebase/compat/app";
 
-    declare global {
-  interface Window { // ⚠️ notice that "Window" is capitalized here
-    recaptchaVerifier: any,
-    confirmationResult :any;
+declare global {
+  interface Window {
+    // ⚠️ notice that "Window" is capitalized here
+    recaptchaVerifier: any;
+    confirmationResult: any;
   }
 }
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-   const [phone, setPhone] = useState('+91');
-    const [otp, setOtp] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState<any>("");
+  const [code, setCode] = useState<any>("");
+  const [verificationId, setVerificationId] = useState<any>(null);
+  const recaptchaVerifier = useRef<any>(null);
 
   let [mode, setMode] = useState<string>("signUp");
   const {
     theme: { colors },
   } = useContext(Context);
 
+  const handlePress = () => {
+    const phoneProvider = new PhoneAuthProvider(auth);
+    phoneProvider
+      .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
+      .then(setVerificationId);
+    setPhoneNumber("");
 
-  const generateRecaptcha = () => {
-    window.recaptchaVerifier  = new RecaptchaVerifier('recaptcha', {
-      'size': 'invisible',
-      'callback': (response :any) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        // ...
-      }
-    }, auth);
-  }
+  /*   signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier.current); */
+  };
 
-  const handlePress = (event :any) => {
-    event.preventDefault();
-/*     setHasFilled(true); */
-    generateRecaptcha();
-    let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(auth, phone, appVerifier)
-      .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        window.confirmationResult = confirmationResult;
-      }).catch((error) => {
-        // Error; SMS not sent
+  const confirmCode = async () => {
+    try{
+      const credential = PhoneAuthProvider.credential(
+        verificationId,
+        code
+      );
+      alert(verificationId)
+     
+     await signInWithCredential(auth,credential)
+        .then(() => {
+          setCode("");
+        })
+    } catch(error:any) {
+        // show an alert in case of error
+        alert(error);
         console.log(error);
-      });
-  }
+      };
+    Alert.alert("Login Successful. Welcome to Dashboard.");
+  };
 
-/*   const verifyOtp = (event) => {
-    let otp = event.target.value;
-    setOtp(otp);
-
-    if (otp.length === 6) {
-      // verifu otp
-      let confirmationResult = window.confirmationResult;
-      confirmationResult.confirm(otp).then((result) => {
-        // User signed in successfully.
-        let user = result.user;
-        console.log(user);
-        alert('User signed in successfully');
-        // ...
-      }).catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        // ...
-        alert('User couldn\'t sign in (bad verification code?)');
-      });
-    }
-  } */
-
-
- /*  async function handlePress() {
+  /*  async function handlePress() {
     if (mode === "signUp") {
       await signUp(email, password);
     }
@@ -86,8 +74,6 @@ export default function SignIn() {
       await signIn(email, password);
     }
   } */
-
-
 
   return (
     <View
@@ -97,7 +83,11 @@ export default function SignIn() {
         flex: 1,
         backgroundColor: colors.white,
       }}
-    >   
+    >
+      <FirebaseRecaptchaVerifierModal
+        ref={recaptchaVerifier}
+        firebaseConfig={firebaseConfig}
+      />
       <Text
         style={{ color: colors.foreground, fontSize: 24, marginBottom: 20 }}
       >
@@ -110,20 +100,31 @@ export default function SignIn() {
       />
       <View style={{ marginTop: 20 }}>
         <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
+          placeholder="phone Number with country code"
+          keyboardType={"phone-pad"}
+          value={phoneNumber}
+          autoComplete="tel"
+          onChangeText={setPhoneNumber}
           style={{
             borderBottomColor: colors.primary,
             borderBottomWidth: 2,
             width: 200,
           }}
         />
+
+        <View style={{ marginTop: 20 }}>
+          <Button
+            /* title={mode === "SignUp" ? "Sign Up" : "Sign In"} */
+            title="Send Code"
+            color={colors.secondary}
+            disabled={!phoneNumber}
+            onPress={handlePress}
+          />
+        </View>
         <TextInput
           placeholder="Password"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={setPassword}
+          keyboardType="number-pad"
+          onChangeText={setCode}
           style={{
             borderBottomColor: colors.primary,
             borderBottomWidth: 2,
@@ -133,13 +134,13 @@ export default function SignIn() {
         />
         <View style={{ marginTop: 20 }}>
           <Button
-            title={mode === "SignUp" ? "Sign Up" : "Sign In"}
+            /* title={mode === "SignUp" ? "Sign Up" : "Sign In"} */
+            title="confirm code"
             color={colors.secondary}
-            disabled={!password || !email}
-            onPress={handlePress}
+            /*         disabled={!phoneNumber} */
+            onPress={confirmCode}
           />
         </View>
-
         <TouchableOpacity
           style={{ marginTop: 15 }}
           onPress={() =>
