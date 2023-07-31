@@ -46,8 +46,8 @@ export default function Chat() {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
+  const senderUser: any = currentUser?.photoURL
 
-  const senderUser:any = currentUser?.photoURL 
     ? {
         name: currentUser.displayName,
         _id: currentUser.uid,
@@ -74,15 +74,13 @@ export default function Chat() {
         }
         const userBData: any = {
           displayName: userB.contactName || userB.displayName || "",
-          email: userB.displayName,
         };
         if (userB.photoURL) {
           userBData.photoURL = userB.photoURL;
         }
         const roomData = {
           participants: [currUserData, userBData],
-
-          participantsArray: [currentUser?.displayName, userB.displayName],
+          participantsArray: [currentUser?.displayName, userB.contactName],
 
         };
         try {
@@ -91,12 +89,11 @@ export default function Chat() {
           console.log(error);
         }
       }
+      const nameHash = `${currentUser?.displayName}:${userB.contactName}`;
+      setRoomHash(nameHash);
 
-      const emailHash = `${currentUser?.displayName}:${userB.displayName}`;
-
-      setRoomHash(emailHash);
       if (selectedImage && selectedImage.uri) {
-        await sendImage(selectedImage.uri, emailHash);
+        await sendImage(selectedImage.uri, nameHash);
       }
     })();
   }, []);
@@ -187,6 +184,8 @@ export default function Chat() {
         timeTextStyle={{ right: { color: colors.iconGray } }}
         renderSend={(props) => {
           const { text, messageIdGenerator, user, onSend }: any = props;
+          console.log(props);
+          
           return (
             <TouchableOpacity
               style={{
