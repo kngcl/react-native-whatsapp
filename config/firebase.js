@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
 } from "firebase/auth";
 import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
@@ -29,6 +30,10 @@ export const auth = getAuth(app);
 export const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 });
+
+export function signIn1() {
+  return signInWithPhoneNumber(auth, email, password);
+}
 
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);

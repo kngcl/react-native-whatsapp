@@ -1,4 +1,3 @@
-
 import {
   View,
   Text,
@@ -7,28 +6,88 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-
 import React, { useContext, useState } from "react";
 import Context from "../../context/Context";
-import { signIn, signUp } from "../../config/firebase";
+import { auth, signIn, signUp } from "../../config/firebase";
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
+    declare global {
+  interface Window { // ⚠️ notice that "Window" is capitalized here
+    recaptchaVerifier: any,
+    confirmationResult :any;
+  }
+}
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+   const [phone, setPhone] = useState('+91');
+    const [otp, setOtp] = useState('');
 
   let [mode, setMode] = useState<string>("signUp");
   const {
     theme: { colors },
   } = useContext(Context);
 
-  async function handlePress() {
+
+  const generateRecaptcha = () => {
+    window.recaptchaVerifier  = new RecaptchaVerifier('recaptcha', {
+      'size': 'invisible',
+      'callback': (response :any) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+        // ...
+      }
+    }, auth);
+  }
+
+  const handlePress = (event :any) => {
+    event.preventDefault();
+/*     setHasFilled(true); */
+    generateRecaptcha();
+    let appVerifier = window.recaptchaVerifier;
+    signInWithPhoneNumber(auth, phone, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+      }).catch((error) => {
+        // Error; SMS not sent
+        console.log(error);
+      });
+  }
+
+/*   const verifyOtp = (event) => {
+    let otp = event.target.value;
+    setOtp(otp);
+
+    if (otp.length === 6) {
+      // verifu otp
+      let confirmationResult = window.confirmationResult;
+      confirmationResult.confirm(otp).then((result) => {
+        // User signed in successfully.
+        let user = result.user;
+        console.log(user);
+        alert('User signed in successfully');
+        // ...
+      }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        // ...
+        alert('User couldn\'t sign in (bad verification code?)');
+      });
+    }
+  } */
+
+
+ /*  async function handlePress() {
     if (mode === "signUp") {
       await signUp(email, password);
     }
     if (mode === "signIn") {
       await signIn(email, password);
     }
-  }
+  } */
+
+
 
   return (
     <View

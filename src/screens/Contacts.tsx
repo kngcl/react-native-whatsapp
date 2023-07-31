@@ -22,7 +22,7 @@ export default function Contacts() {
   );
 }
 
-function ContactPreview({ contact, image }:any) {
+function ContactPreview({ contact, image }: any) {
   const { unfilteredRooms, rooms } = useContext<any>(GlobalContext);
   const [user, setUser] = useState<any>(contact);
 

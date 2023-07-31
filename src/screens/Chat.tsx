@@ -47,6 +47,7 @@ export default function Chat() {
   const userB = route.params.user;
 
   const senderUser: any = currentUser?.photoURL
+
     ? {
         name: currentUser.displayName,
         _id: currentUser.uid,
@@ -62,9 +63,11 @@ export default function Chat() {
   useEffect(() => {
     (async () => {
       if (!room) {
+
         const currUserData: any = {
           displayName: currentUser?.displayName,
-          email: currentUser?.email,
+          email: currentUser?.displayName,
+
         };
         if (currentUser?.photoURL) {
           currUserData.photoURL = currentUser?.photoURL;
@@ -78,6 +81,7 @@ export default function Chat() {
         const roomData = {
           participants: [currUserData, userBData],
           participantsArray: [currentUser?.displayName, userB.contactName],
+
         };
         try {
           await setDoc(roomRef, roomData);
@@ -87,6 +91,7 @@ export default function Chat() {
       }
       const nameHash = `${currentUser?.displayName}:${userB.contactName}`;
       setRoomHash(nameHash);
+
       if (selectedImage && selectedImage.uri) {
         await sendImage(selectedImage.uri, nameHash);
       }

@@ -8,6 +8,8 @@ export default function useContacts() {
       const { status } = await Contacts.requestPermissionsAsync();
       if (status === "granted") {
         const { data }: any = await Contacts.getContactsAsync({
+
+
           fields: [Contacts.Fields.FirstName],
         });        
         if (data.length >= 0) {
@@ -15,7 +17,9 @@ export default function useContacts() {
             data
               .filter(
                 (c: any) =>
+
                   c.firstName && c.lastName
+
               )
               .map(mapContactToUser)
           );
@@ -31,5 +35,7 @@ function mapContactToUser(contact: any) {
       contact.firstName && contact.lastName
         ? `${contact.firstName} ${contact.lastName}`
         : contact.firstName,
+
   };
 }
+
